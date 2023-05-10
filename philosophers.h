@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/10 13:55:33 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/10 18:15:32 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,30 @@
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h>
 
-typedef struct philo
+typedef struct ph
 {
-	long	number_of_philosophers;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	number_of_times_each_philosopher_must_eat;
-}t_philo;
+	long		nb;
+	pthread_t	t;
+}t_ph;
+
+typedef struct data
+{
+	long	n_philo;
+	long	t_die;
+	long	t_eat;
+	long	t_sleep;
+	long	nb_t_eat;
+	t_ph	*all_ph;
+}t_data;
+
+
 
 long	ft_philo_atoi(char *str);
-int	initualize(t_philo *all, char **argv);
+int		initualize(t_data *all, char **argv);
+void	fill_table(t_data *all, long nb);
 
 #endif
