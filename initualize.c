@@ -6,22 +6,19 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/10 18:06:51 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/15 12:37:25 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	initualize(t_data *all, char **argv)
+int	ini_data(t_data *all, char **argv)
 {
 	int	i;
 	int	nb;
 
 	i = 1;
 	nb = 0;
-	all = (t_data *)malloc(sizeof(t_data));
-	if (!all)
-		return (-1);
 	while (i < 6)
 	{
 		nb = ft_philo_atoi(argv[i]);
@@ -34,7 +31,8 @@ int	initualize(t_data *all, char **argv)
 	all->t_eat = ft_philo_atoi(argv[3]);
 	all->t_sleep = ft_philo_atoi(argv[4]);
 	all->nb_t_eat = ft_philo_atoi(argv[5]);
-	all->all_ph = NULL;
+	all->all_p = malloc(all->n_philo * sizeof(t_philo));
+	ini_philo(all);
 	return (0);
 }
 
@@ -57,42 +55,16 @@ long	ft_philo_atoi(char *str)
 	return (nb);
 }
 
-t_ph	*new_ph(long	i)
+void	ini_philo(t_data *all)
 {
-	t_ph	*new;
-	pthread_t	t;
+	int	i;
 
-	new = (t_ph *)malloc(sizeof(t_ph));
-	new->t = t;
-	new->nb = i;
-	new->prev = new;
-	new->next = new;
-	return (new);
-}
-
-void	add_ph_back(t_ph **top, t_ph *new)
-{
-	if (!new)
-		return ;
-	if (!*top)
-		*top = new;
-	else
+	i = 0;
+	while (i < all->n_philo)
 	{
-		new->next = *top;
-		new->prev = (*top)->prev;
-		new->prev->next = new;
-		(*top)->prev = new;
-	}
-}
-
-void	fill_table(t_data *all, long nb)
-{
-	long	i;
-
-	i = 1;
-	while(i <= nb)
-	{
-		add_ph_back(&all->all_ph, new_ph(i));
+		all->all_p[i].id = 1 + i;
+		pthread_mutex_init(&(all->all_p[i].left), NULL);
+		pthread_mutex_init(&(all->all_p[i].right), NULL);
 		i++;
 	}
 }
