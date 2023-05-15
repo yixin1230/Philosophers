@@ -6,19 +6,27 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/15 12:38:15 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/15 15:49:33 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /* 
-1.define a struct ti represent the state of each philosopher
-2.implement the behavior of the philosophers in a thread function
-3.create philosopher thread and initialize the mutex
-4.
+1.check the condition:
+	only numbers,
+	can't be more than 200,
+	can't be less than 1 philo,
+	other things have to be bigger than 0;
+2.initialization
+3.action,supervisor(check if the time passed) and 
+	monitor(check if all philo marked as finished)
+4.clearing the memory
+	join the threads
+	destroy the mutexes
+	clear the memory
+	free all the allocations that we made
  */
-
 int	main(int argc, char **argv)
 {
 	t_data	all;
@@ -26,14 +34,13 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 6)
+	if (checker(argc, argv) < 0)
 		return (1);
 	if (ini_data(&all, argv) < 0)
-		return (1);
-	//printf("1:%li\n2:%li\n3:%li\n4:%li\n5:%li\n",all.n_philo,all.t_die,all.t_eat,all.t_sleep,all.nb_t_eat);
+		return (2);
 	t = malloc(all.n_philo * sizeof(pthread_t));
 	if (!t)
-		return (1);
+		return (3);
 	while(i < all.n_philo)
 	{
 		pthread_create(&t[i], NULL, action, &(all.all_p[i]));
