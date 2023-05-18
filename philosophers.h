@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/15 17:43:05 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/18 15:43:44 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	ini_philo(t_data *all);
 void	ini_mutex(t_data *all);
 void	*action(void	*arg);
 int		checker(int argc, char **argv);
+long	ph_time(void);
 
 #endif

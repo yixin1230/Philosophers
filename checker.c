@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/15 17:28:40 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/18 15:43:37 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,12 @@ int	checker(int argc, char **argv)
 		i++;
 	}
 	return (0);
+}
+
+long	ph_time(void)
+{
+	struct timeval current_time;
+	
+	gettimeofday(&current_time,	NULL);
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }

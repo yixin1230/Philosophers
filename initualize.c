@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/15 18:15:08 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/18 14:37:09 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	ini_data(t_data *all, char **argv)
 	all->t_eat = ft_philo_atoi(argv[3]);
 	all->t_sleep = ft_philo_atoi(argv[4]);
 	all->nb_t_eat = ft_philo_atoi(argv[5]);
-	ini_mutex(all);
 	all->all_fork = malloc(all->n_philo * sizeof(pthread_mutex_init));
 	if (!all->all_fork)
 		return (-1);
+	ini_mutex(all);
 	if (all->n_philo < 1 || all->n_philo > 200 || all->t_die == 0 ||
 		all->t_eat == 0 || all->t_sleep == 0 || all->nb_t_eat == 0)
 		return (-1);
@@ -78,7 +78,7 @@ void	ini_mutex(t_data *all)
 	i = 0;
 	while (i < all->n_philo)
 	{
-		if (pthread_mutex_init(&all->all_fork[i], NULL) == 0)
+		if (pthread_mutex_init(&(all->all_fork[i]), NULL) == 0)
 			return ;
 		i++;
 	}

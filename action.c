@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 09:33:31 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/15 14:34:34 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/18 15:49:59 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,32 @@ void	*action(void	*arg)
 {
 	long	i;
 	t_philo	*philo;
-	struct timeval	current_time;
+	long	start;
+	long	end;
 
 	philo = (t_philo *)arg;
 	i = philo->id;
+	start = ph_time();
 	pthread_mutex_lock(&philo->right);
-	gettimeofday(&current_time, NULL);
-	printf("%d %li has taken right fork\n", current_time.tv_usec/1000, i);
+	end = ph_time();
+	printf("%li %li has taken right fork\n", end - start, i);
 	pthread_mutex_lock(&philo->left);
-	gettimeofday(&current_time, NULL);
-	printf("%d %li has taken left fork\n", current_time.tv_usec/1000, i);
-	printf("timestamp_in_ms %li is eating\n", i);
-	usleep(philo->t_eat);
+	end = ph_time();
+	printf("%li %li is eating\n", end - start, i);
+	usleep(philo->t_eat * 1000);
+	end = ph_time();
+	printf("%li %li has taken left fork\n", end - start, i);
 	pthread_mutex_unlock(&philo->right);
 	pthread_mutex_unlock(&philo->left);
-	printf("timestamp_in_ms %li is sleeping\n", i);
-	usleep(philo->t_sleep);
-	printf("timestamp_in_ms %li is thinking\n", i);
-	if (current_time.tv_usec/1000 >= philo->t_die)
+	end = ph_time();
+	printf("%li %li is sleeping\n", end - start, i);
+	usleep(philo->t_sleep * 1000);
+	end = ph_time();
+	printf("%li %li is thinking\n", end - start, i);
+	end = ph_time();
+	if (end - start >= philo->t_die)
 	{
-		printf("timestamp_in_ms %li died\n", i);
+		printf("%li %li died\n",end - start, i);
 	}
 	return (NULL);
 }
