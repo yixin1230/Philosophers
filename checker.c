@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/18 15:43:37 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/18 18:14:16 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,23 @@ long	ph_time(void)
 	
 	gettimeofday(&current_time,	NULL);
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
+
+long	ft_philo_atoi(char *str)
+{
+	long	nb;
+	long	i;
+
+	i = 0;
+	nb = 0;
+	if (!str)
+		return (-1);
+	while(str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	return (nb);
 }
