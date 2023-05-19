@@ -6,22 +6,26 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/18 18:21:03 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/19 16:42:09 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ini_data(t_data *all, char **argv)
+int	ini_data(t_data *all, char **argv, int argc)
 {
 	all->n_philo = ft_philo_atoi(argv[1]);
 	all->t_die = ft_philo_atoi(argv[2]);
 	all->t_eat = ft_philo_atoi(argv[3]);
 	all->t_sleep = ft_philo_atoi(argv[4]);
-	all->nb_t_eat = ft_philo_atoi(argv[5]);
+	all->argc = argc;
+	if (argc == 6)
+		all->nb_t_eat = ft_philo_atoi(argv[5]);
+	else
+		all->nb_t_eat = 0;
 	all->dead = 0;
 	if (all->n_philo < 1 || all->n_philo > 200 || all->t_die == 0 ||
-		all->t_eat == 0 || all->t_sleep == 0 || all->nb_t_eat == 0)
+		all->t_eat == 0 || all->t_sleep == 0 || (all->nb_t_eat == 0 && argc == 6))
 		return (-1);
 	return (0);
 }
@@ -66,20 +70,20 @@ int	allocate_all(t_data *all)
 {
 	all->t = malloc(all->n_philo * sizeof(pthread_t));
 	if (!all->t)
-		return (3);
+		return (1);
 	all->all_fork = malloc(all->n_philo * sizeof(pthread_mutex_init));
 	if (!all->all_fork)
-		return (-1);
+		return (2);
 	all->all_p = malloc(all->n_philo * sizeof(t_philo));
 	if (!all->all_p)
-		return (-1);
+		return (3);
 	return (0);
 }
 
 
-int	init(t_data *all, char **argv)
+int	init(t_data *all, char **argv, int argc)
 {
-	if (ini_data(all,argv) != 0)
+	if (ini_data(all, argv, argc) != 0)
 		return (1);
 	if (allocate_all(all) != 0)
 		return (1);

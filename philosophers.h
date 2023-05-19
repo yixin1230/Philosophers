@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/18 18:19:00 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/19 16:23:30 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct philo
 	long		t_sleep;
 	long		nb_t_eat;
 	long		nb_eaten;
+	long		time_start;
+	long		time_end;
 	long		non_eat_start;
 	struct data		*all;
 	pthread_mutex_t	right;
@@ -42,21 +44,29 @@ typedef struct data
 	long			t_sleep;
 	long			nb_t_eat;
 	int				dead;
+	int				argc;
 	t_philo			*all_p;
 	pthread_t		*t;
 	pthread_mutex_t	*all_fork;
 }t_data;
 
-
-
+int		checker(int argc, char **argv);
 long	ft_philo_atoi(char *str);
-int		ini_data(t_data *all, char **argv);
+long	ph_time(void);
+
+int		ini_data(t_data *all, char **argv, int argc);
 void	ini_philo(t_data *all);
 void	ini_mutex(t_data *all);
-int		init(t_data *all, char **argv);
+int		init(t_data *all, char **argv, int argc);
 int		allocate_all(t_data *all);
+
+int		process(t_data *all);
 void	*action(void *arg);
-int		checker(int argc, char **argv);
-long	ph_time(void);
+void	taking_fork(t_philo *philo, char c);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
+int	check_dead(t_philo *philo);
+int		free_all(t_data *all);
 
 #endif
