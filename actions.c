@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/19 16:20:15 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/19 17:23:31 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/19 18:19:13 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,21 @@ void	*action(void	*arg)
 	philo = (t_philo *)arg;
 	philo->time_start = ph_time();
 	philo->non_eat_start = ph_time();
-	while (!check_dead(philo))
+	while (!philo->all->dead || !philo->stop)
 	{
+		if (check_dead(philo) || philo->stop)
+			return (0);
 		taking_fork(philo, 'r');
+		if (check_dead(philo) || philo->stop)
+			return (0);
 		taking_fork(philo, 'l');
+		if (check_dead(philo) || philo->stop)
+			return (0);
 		eating(philo);
+		if (check_dead(philo) || philo->stop)
+			return (0);
 		sleeping(philo);
-		if (philo->all->dead)
+		if (check_dead(philo) || philo->stop)
 			return (0);
 		thinking(philo);
 		if (philo->all->argc == 6)
@@ -35,6 +43,8 @@ void	*action(void	*arg)
 				break ;
 			philo->nb_eaten++;
 		}
+		if (check_dead(philo) || philo->stop)
+			return (0);
 	}
 	return (NULL);
 }

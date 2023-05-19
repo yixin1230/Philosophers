@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/19 16:42:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/19 17:45:55 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ini_philo(t_data *all)
 		all->all_p[i].left = all->all_fork[i + 1];
 		all->all_p[i].nb_eaten = 0;
 		all->all_p[i].non_eat_start = 0;
+		all->all_p[i].stop = 0;
 		all->all_p[i].all = all;
 		i++;
 	}
