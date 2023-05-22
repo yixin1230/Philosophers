@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/22 10:35:41 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/22 17:48:20 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ void	ini_philo(t_data *all)
 
 void	ini_mutex(t_data *all)
 {
-	int	i;
+	int				i;
 
 	i = 0;
+	if (pthread_mutex_init(&all->lock_print, NULL) == 0)
+		return ;
 	while (i < all->n_philo)
 	{
-		if (pthread_mutex_init(&(all->all_fork[i]), NULL) == 0)
+		if (pthread_mutex_init(&all->all_fork[i], NULL) == 0)
 			return ;
 		i++;
 	}
@@ -80,6 +82,27 @@ int	allocate_all(t_data *all)
 	return (0);
 }
 
+int	ini_thread(t_data *all)
+{
+	int			i;
+	pthread_t	moni;
+
+	i = 0;
+	while(i < all->n_philo)
+	{
+		pthread_create(&all->t[i], NULL, action, &(all->all_p[i]));
+		i++;
+	}
+	pthread_create(&moni, NULL, monitor, all->all_p);
+	pthread_join(moni, NULL);
+	i = 0;
+	while(i < all->n_philo)
+	{
+		pthread_join(all->t[i], NULL);
+		i++;
+	}
+	return (0);
+}
 
 int	init(t_data *all, char **argv, int argc)
 {
@@ -89,5 +112,8 @@ int	init(t_data *all, char **argv, int argc)
 		return (1);
 	ini_mutex(all);
 	ini_philo(all);
+	ini_thread(all);
 	return (0);
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/22 12:08:16 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/22 17:44:54 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct philo
 	struct data		*all;
 	pthread_mutex_t	right;
 	pthread_mutex_t	left;
-	pthread_mutex_t	lock_print;
 }t_philo;
 
 typedef struct data
@@ -48,26 +47,28 @@ typedef struct data
 	int				argc;
 	t_philo			*all_p;
 	pthread_t		*t;
+	pthread_mutex_t	lock_print;
 	pthread_mutex_t	*all_fork;
 }t_data;
 
 int		checker(int argc, char **argv);
 long	ft_philo_atoi(char *str);
 long	ph_time(void);
+void	my_usleep(unsigned int ms);
 
 int		ini_data(t_data *all, char **argv, int argc);
 void	ini_philo(t_data *all);
 void	ini_mutex(t_data *all);
 int		init(t_data *all, char **argv, int argc);
 int		allocate_all(t_data *all);
+int		int_thread(t_data *all);
 
-int		process(t_data *all);
 void	*action(void *arg);
 void	taking_fork(t_philo *philo, char c);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-int	check_dead(t_philo *philo);
+int		check_dead(t_philo *philo);
 int		free_all(t_data *all);
-
+void	*monitor(void *arg);
 #endif
