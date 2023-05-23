@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 15:51:30 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 16:10:35 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*monitor(void *arg)
 			return (NULL);
 		}
 	}
+	i = 0;
 	return (NULL);
 }
 

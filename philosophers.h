@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/22 17:44:54 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 16:17:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@
 typedef struct philo
 {
 	long			id;
-	long		n_philo;
-	long		t_die;
-	long		t_eat;
-	long		t_sleep;
-	long		nb_t_eat;
-	long		nb_eaten;
-	long		time_start;
-	long		non_eat_start;
-	int			stop;
+	long			n_philo;
+	long			t_die;
+	long			t_eat;
+	long			t_sleep;
+	long			nb_t_eat;
+	long			nb_eaten;
+	long			time_start;
+	long			non_eat_start;
+	int				stop;
 	struct data		*all;
-	pthread_mutex_t	right;
-	pthread_mutex_t	left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	*left;
 }t_philo;
 
 typedef struct data

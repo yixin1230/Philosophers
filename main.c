@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 11:36:48 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 16:10:57 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 {
 	t_data	all;
 
-	//atexit(leaks);
+	atexit(leaks);
 	if (checker(argc, argv) != 0)
 		return (1);
 	if (init(&all, argv, argc) != 0)

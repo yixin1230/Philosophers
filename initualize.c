@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 14:34:31 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 16:14:01 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ini_philo(t_data *all)
 		all->all_p[i].t_eat = all->t_eat;
 		all->all_p[i].t_sleep = all->t_sleep;
 		all->all_p[i].nb_t_eat = all->nb_t_eat;
-		all->all_p[i].right = all->all_fork[i];
-		all->all_p[i].left = all->all_fork[i + 1];
+		all->all_p[i].right = &all->all_fork[i];
+		all->all_p[i].left = &all->all_fork[i + 1];
 		all->all_p[i].nb_eaten = 0;
 		all->all_p[i].stop = 0;
 		all->all_p[i].all = all;
@@ -94,7 +94,6 @@ int	ini_thread(t_data *all)
 		i++;
 	}
 	pthread_create(&moni, NULL, monitor, all->all_p);
-	
 	i = 0;
 	while(i < all->n_philo)
 	{
@@ -116,5 +115,3 @@ int	init(t_data *all, char **argv, int argc)
 	ini_thread(all);
 	return (0);
 }
-
-
