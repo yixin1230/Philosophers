@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/22 17:43:26 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 11:36:48 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	free_all(t_data *all)
 	int	i;
 
 	i = 0;
-	pthread_mutex_unlock(&all->lock_print);
 	while (i < all->n_philo)
 	{
 		pthread_mutex_unlock(&all->all_fork[i]);
@@ -25,12 +24,8 @@ int	free_all(t_data *all)
 			return (1);
 		i++;
 	}
-	while (i < all->n_philo)
-	{
-		if (pthread_detach(all->t[i]) != 0)
-			return (1);
-		i++;
-	}
+	pthread_mutex_unlock(&all->lock_print);
+	pthread_mutex_destroy(&all->lock_print);
 	free(all->all_p);
 	free(all->all_fork);
 	free(all->t);

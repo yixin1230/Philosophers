@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/22 17:48:20 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 14:34:31 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,14 @@ int	ini_thread(t_data *all)
 		i++;
 	}
 	pthread_create(&moni, NULL, monitor, all->all_p);
-	pthread_join(moni, NULL);
+	
 	i = 0;
 	while(i < all->n_philo)
 	{
 		pthread_join(all->t[i], NULL);
 		i++;
 	}
+	pthread_join(moni, NULL);
 	return (0);
 }
 
