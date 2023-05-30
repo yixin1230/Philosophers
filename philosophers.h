@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 16:17:14 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/23 17:17:31 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct philo
 	long			time_start;
 	long			non_eat_start;
 	int				stop;
+	int				enough;
 	struct data		*all;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	*left;
@@ -45,6 +46,7 @@ typedef struct data
 	long			nb_t_eat;
 	int				dead;
 	int				argc;
+	int				enough_philos;
 	t_philo			*all_p;
 	pthread_t		*t;
 	pthread_mutex_t	lock_print;

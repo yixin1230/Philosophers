@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 16:10:57 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/30 15:39:21 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ int	free_all(t_data *all)
 {
 	int	i;
 
-	i = 0;
-	while (i < all->n_philo)
+	i = -1;
+	while (i++ < all->n_philo)
 	{
 		pthread_mutex_unlock(&all->all_fork[i]);
-		if(pthread_mutex_destroy(&all->all_fork[i]) != 0)
-			return (1);
-		i++;
+		pthread_mutex_destroy(&all->all_fork[i]);
 	}
 	pthread_mutex_unlock(&all->lock_print);
 	pthread_mutex_destroy(&all->lock_print);
@@ -32,16 +30,16 @@ int	free_all(t_data *all)
 	return (0);
 }
 
-void	leaks(void)
+/* void	leaks(void)
 {
 	system("leaks -q philo");
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_data	all;
 
-	atexit(leaks);
+	//atexit(leaks);
 	if (checker(argc, argv) != 0)
 		return (1);
 	if (init(&all, argv, argc) != 0)

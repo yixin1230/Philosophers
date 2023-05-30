@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/19 16:20:15 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 16:12:46 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/30 15:48:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	*action(void	*arg)
 	philo->non_eat_start = ph_time();
 	while (!philo->all->dead || !philo->stop)
 	{
-		if (philo->all->dead || philo->stop)
+		if (philo->all->dead || philo->stop || philo->all->enough_philos)
 			return (0);
 		taking_fork(philo, 'r');
-		if (philo->all->dead || philo->stop)
+		if (philo->all->dead || philo->stop || philo->all->enough_philos)
 			return (0);
 		eating(philo);
-		if (philo->all->dead || philo->stop)
+		if (philo->all->dead || philo->stop || philo->all->enough_philos)
 			return (0);
 		sleeping(philo);
-		if (philo->all->dead || philo->stop)
+		if (philo->all->dead || philo->stop || philo->all->enough_philos)
 			return (0);
 		thinking(philo);
-		if (philo->all->dead || philo->stop)
+		if (philo->all->dead || philo->stop || philo->all->enough_philos)
 			return (0);
 	}
 	return (NULL);
@@ -59,6 +59,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(philo->right);
 	pthread_mutex_unlock(philo->left);
 	pthread_mutex_unlock(&philo->all->lock_print);
+	philo->non_eat_start = ph_time();
 }
 
 void	thinking(t_philo *philo)

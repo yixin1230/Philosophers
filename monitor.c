@@ -6,11 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 16:10:35 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/30 15:56:54 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
 
 void	*monitor(void *arg)
 {
@@ -21,22 +22,20 @@ void	*monitor(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->stop || !philo->all->dead)
 	{
-		if (ph_time() - philo->non_eat_start >= philo->t_die)
+		if (check_dead(philo) == 1)
+			return (NULL);
+		if (philo->nb_eaten >= philo->nb_t_eat)
 		{
-			philo->all->dead = 1;
-			pthread_mutex_lock(&philo->all->lock_print);
-			printf("%li %li died\n", ph_time() - philo->time_start, philo->id);
-			pthread_mutex_unlock(&philo->all->lock_print);
-			while (i < philo->all->n_philo)
+			philo->enough = 1;
+			while (i < philo->n_philo)
 			{
-				pthread_mutex_unlock(&philo->all->all_fork[i]);
-				philo->all->all_p[i].stop = 1;
+				if (philo->all->all_p[i].enough == 0)
+					break ;
 				i++;
 			}
-			return (NULL);
+			if (i == philo->n_philo - 1)
+				philo->all->enough_philos = 1;
 		}
 	}
-	i = 0;
 	return (NULL);
 }
-
