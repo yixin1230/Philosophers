@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/30 15:59:34 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/30 17:53:52 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	ini_philo(t_data *all)
 	int	i;
 
 	i = 0;
+	if (all->n_philo == 1)
+	{
+		all->all_p[i].right = &all->all_fork[i];
+		all->all_p[i].left = NULL;
+		return ;
+	}
 	while (i < all->n_philo)
 	{
 		all->all_p[i].id = 1 + i;
@@ -46,7 +52,10 @@ void	ini_philo(t_data *all)
 		all->all_p[i].t_sleep = all->t_sleep;
 		all->all_p[i].nb_t_eat = all->nb_t_eat;
 		all->all_p[i].right = &all->all_fork[i];
-		all->all_p[i].left = &all->all_fork[i + 1];
+		if (i != all->n_philo - 1)
+			all->all_p[i].left = &all->all_fork[i + 1];
+		else
+			all->all_p[i].left = &all->all_fork[0];
 		all->all_p[i].nb_eaten = 0;
 		all->all_p[i].stop = 0;
 		all->all_p[i].enough = 0;
@@ -91,13 +100,12 @@ int	ini_thread(t_data *all)
 	pthread_t	moni;
 
 	i = 0;
-
 	while(i < all->n_philo)
 	{
-		pthread_create(&all->t[i], NULL, action, &(all->all_p[i]));
+		pthread_create(&all->t[i], NULL, action, (void *)&(all->all_p[i]));
 		i++;
 	}
-	pthread_create(&moni, NULL, monitor, all->all_p);	
+	pthread_create(&moni, NULL, monitor, all->all_p);
 	i = 0;
 	while(i < all->n_philo)
 	{

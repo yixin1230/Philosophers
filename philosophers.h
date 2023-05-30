@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/23 17:17:31 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/30 17:43:40 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct philo
 	struct data		*all;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	*left;
+	pthread_mutex_t	lock_print;
 }t_philo;
 
 typedef struct data
@@ -64,7 +65,7 @@ void	ini_mutex(t_data *all);
 int		init(t_data *all, char **argv, int argc);
 int		allocate_all(t_data *all);
 int		int_thread(t_data *all);
-
+int check_meals(t_philo *philo);
 void	*action(void *arg);
 void	taking_fork(t_philo *philo, char c);
 void	eating(t_philo *philo);
