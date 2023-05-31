@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 12:03:30 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 15:13:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	check_dead(t_philo *philo)
 	i = 0;
 	if (ph_time() - philo->non_eat_start >= philo->t_die)
 	{
+		//printf ("ph_time() - philo->non_eat_start: %li >= philo->t_die:%li\n", ph_time() - philo->non_eat_start ,philo->t_die);
 		philo->all->dead = 1;
 		pthread_mutex_lock(&philo->lock_print);
 		printf("%li %li died\n", ph_time() - philo->all->time_start, philo->id);
@@ -91,6 +92,7 @@ int	check_dead(t_philo *philo)
 			philo->all->all_p[i].stop = 1;
 			i++;
 		}
+		pthread_mutex_unlock(&philo->all->test);
 		return (1);
 	}
 	return	(0);

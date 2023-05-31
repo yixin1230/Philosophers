@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 12:16:44 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 15:04:11 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ini_philo(t_data *all)
 		all->all_p[i].enough = 0;
 		all->all_p[i].all = all;
 		all->all_p[i].non_eat_start = ph_time();
-		pthread_mutex_init(&all->all_p[i].lock_print, NULL);
 		i++;
 	}
 }
@@ -71,12 +70,12 @@ void	ini_mutex(t_data *all)
 {
 	int	i;
 
-	i = 0;
-	while (i < all->n_philo)
+	i = -1;
+	pthread_mutex_init(&all->test, NULL);
+	while (++i < all->n_philo)
 	{
-		if (pthread_mutex_init(&all->all_fork[i], NULL) == 0)
-			return ;
-		i++;
+		pthread_mutex_init(&all->all_p[i].lock_print, NULL);
+		pthread_mutex_init(&all->all_fork[i], NULL);
 	}
 }
 
@@ -102,7 +101,7 @@ int	ini_thread(t_data *all)
 	i = -1;
 	pthread_create(&moni, NULL, monitor, all->all_p);
 	while(++i < all->n_philo)
-		pthread_create(&all->t[i], NULL, action, (void *)&(all->all_p[i]));
+		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
 	i = -1;
 	while(++i < all->n_philo)
 		pthread_join(all->t[i], NULL);
