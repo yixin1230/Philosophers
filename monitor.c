@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/30 16:51:26 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 11:56:37 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int check_meals(t_philo *philo)
 				break ;
 			i++;
 		}
-		if (i == philo->n_philo - 1)
+		if (i == philo->n_philo)
 		{
 			philo->all->enough_philos = 1;
 			return (1);
@@ -42,14 +42,13 @@ void	*monitor(void *arg)
 
 	i = 0;
 	philo = (t_philo *)arg;
-	while (1)
+	while (!philo->all->dead)
 	{
 		i = 0;
 		while (i < philo[i].n_philo)
 		{
-			if (check_dead(&philo[i]))
-				return (NULL);
-			if (check_meals(&philo[i]))
+			//printf("ph: %i, ph_time() - philo->non_eat_start: %li\n",i, ph_time() - philo[i].non_eat_start);
+			if (check_dead(&philo[i])||check_meals(&philo[i]))
 				return (NULL);
 			i++;
 		}

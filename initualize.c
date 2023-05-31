@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/30 17:53:52 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 12:16:44 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ini_data(t_data *all, char **argv, int argc)
 	all->t_die = ft_philo_atoi(argv[2]);
 	all->t_eat = ft_philo_atoi(argv[3]);
 	all->t_sleep = ft_philo_atoi(argv[4]);
+	all->time_start = ph_time();
 	all->enough_philos = 0;
 	all->argc = argc;
 	all->enough_philos = 0;
@@ -39,8 +40,8 @@ void	ini_philo(t_data *all)
 	i = 0;
 	if (all->n_philo == 1)
 	{
-		all->all_p[i].right = &all->all_fork[i];
-		all->all_p[i].left = NULL;
+		all->all_p[i].right = 0;
+		all->all_p[i].left = 0;
 		return ;
 	}
 	while (i < all->n_philo)
@@ -51,26 +52,26 @@ void	ini_philo(t_data *all)
 		all->all_p[i].t_eat = all->t_eat;
 		all->all_p[i].t_sleep = all->t_sleep;
 		all->all_p[i].nb_t_eat = all->nb_t_eat;
-		all->all_p[i].right = &all->all_fork[i];
+		all->all_p[i].right = i;
 		if (i != all->n_philo - 1)
-			all->all_p[i].left = &all->all_fork[i + 1];
+			all->all_p[i].left = i + 1;
 		else
-			all->all_p[i].left = &all->all_fork[0];
+			all->all_p[i].left = 0;
 		all->all_p[i].nb_eaten = 0;
 		all->all_p[i].stop = 0;
 		all->all_p[i].enough = 0;
 		all->all_p[i].all = all;
+		all->all_p[i].non_eat_start = ph_time();
+		pthread_mutex_init(&all->all_p[i].lock_print, NULL);
 		i++;
 	}
 }
 
 void	ini_mutex(t_data *all)
 {
-	int				i;
+	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(&all->lock_print, NULL) == 0)
-		return ;
 	while (i < all->n_philo)
 	{
 		if (pthread_mutex_init(&all->all_fork[i], NULL) == 0)
@@ -79,13 +80,12 @@ void	ini_mutex(t_data *all)
 	}
 }
 
-
 int	allocate_all(t_data *all)
 {
 	all->t = malloc(all->n_philo * sizeof(pthread_t));
 	if (!all->t)
 		return (1);
-	all->all_fork = malloc(all->n_philo * sizeof(pthread_mutex_init));
+	all->all_fork = malloc(all->n_philo * sizeof(pthread_mutex_t));
 	if (!all->all_fork)
 		return (2);
 	all->all_p = malloc(all->n_philo * sizeof(t_philo));
@@ -99,19 +99,13 @@ int	ini_thread(t_data *all)
 	int			i;
 	pthread_t	moni;
 
-	i = 0;
-	while(i < all->n_philo)
-	{
-		pthread_create(&all->t[i], NULL, action, (void *)&(all->all_p[i]));
-		i++;
-	}
+	i = -1;
 	pthread_create(&moni, NULL, monitor, all->all_p);
-	i = 0;
-	while(i < all->n_philo)
-	{
+	while(++i < all->n_philo)
+		pthread_create(&all->t[i], NULL, action, (void *)&(all->all_p[i]));
+	i = -1;
+	while(++i < all->n_philo)
 		pthread_join(all->t[i], NULL);
-		i++;
-	}
 	pthread_join(moni, NULL);
 	return (0);
 }
