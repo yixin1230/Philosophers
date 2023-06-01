@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 14:24:38 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 15:32:27 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 	t_philo			*all_p;
 	pthread_t		*t;
 	pthread_mutex_t	*all_fork;
-	pthread_mutex_t	test;
+	pthread_mutex_t	lock;
 }t_data;
 
 int		checker(int argc, char **argv);

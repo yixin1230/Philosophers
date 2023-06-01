@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/19 16:20:15 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 15:08:39 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/05/31 18:09:31 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,28 @@ void	taking_fork(t_philo *philo)
 	printf("%li %li has taken a fork[%i]\n", ph_time() - philo->all->time_start, philo->id,philo->right);
 	pthread_mutex_lock(&philo->all->all_fork[philo->left]);
 	printf("%li %li has taken a fork[%i]\n", ph_time() - philo->all->time_start, philo->id,philo->left);
-	
 }
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->lock_print);
+	//pthread_mutex_lock(&philo->lock_print);
 	printf("%li %li is eating\n", ph_time() - philo->all->time_start, philo->id);
 	my_usleep(philo->t_eat);
 	if (philo->all->argc == 6)
 		philo->nb_eaten++;
 	philo->non_eat_start = ph_time();
-	pthread_mutex_unlock(&philo->lock_print);
+	//pthread_mutex_unlock(&philo->lock_print);
 	pthread_mutex_unlock(&philo->all->all_fork[philo->right]);
 	pthread_mutex_unlock(&philo->all->all_fork[philo->left]);
-	
 }
 
 void	thinking(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->lock_print);
 	printf("%li %li is thinking\n", ph_time() - philo->all->time_start, philo->id);
-	pthread_mutex_unlock(&philo->lock_print);
 }
 
 void	sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->lock_print);
 	printf("%li %li is sleeping\n", ph_time() - philo->all->time_start, philo->id);
 	my_usleep(philo->t_sleep);
-	pthread_mutex_unlock(&philo->lock_print);
 }

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 15:04:11 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/01 08:17:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ini_mutex(t_data *all)
 	int	i;
 
 	i = -1;
-	pthread_mutex_init(&all->test, NULL);
+	pthread_mutex_init(&all->lock, NULL);
 	while (++i < all->n_philo)
 	{
 		pthread_mutex_init(&all->all_p[i].lock_print, NULL);
@@ -101,7 +101,10 @@ int	ini_thread(t_data *all)
 	i = -1;
 	pthread_create(&moni, NULL, monitor, all->all_p);
 	while(++i < all->n_philo)
+	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
+		usleep(10);
+	}
 	i = -1;
 	while(++i < all->n_philo)
 		pthread_join(all->t[i], NULL);
