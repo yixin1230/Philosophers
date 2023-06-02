@@ -6,18 +6,18 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 16:10:21 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 17:58:53 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-#include <pthread.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/time.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <sys/time.h>
 
 typedef struct philo
 {
@@ -54,6 +54,7 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 }t_data;
 
+int		int_thread(t_data *all);
 int		checker(int argc, char **argv);
 long	ft_philo_atoi(char *str);
 long	ph_time(void);
@@ -64,7 +65,7 @@ void	ini_philo(t_data *all);
 void	ini_mutex(t_data *all);
 int		init(t_data *all, char **argv, int argc);
 int		allocate_all(t_data *all);
-int		int_thread(t_data *all);
+
 int		check_meals(t_philo *philo);
 void	*action(void *arg);
 void	taking_fork(t_philo *philo);

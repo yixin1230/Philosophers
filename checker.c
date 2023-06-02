@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 16:40:56 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 17:46:06 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	checker(int argc, char **argv)
 
 long	ph_time(void)
 {
-	struct timeval current_time;
-	long	ret;
-	
-	gettimeofday(&current_time,	NULL);
+	struct timeval	current_time;
+	long			ret;
+
+	gettimeofday(&current_time, NULL);
 	ret = (long)current_time.tv_sec * 1000 + (long)current_time.tv_usec / 1000;
 	return (ret);
 }
@@ -50,7 +50,7 @@ void	my_usleep(long ms)
 
 	time = ph_time();
 	while (ph_time() - time < ms)
-		usleep(ms/10);
+		usleep(ms / 10);
 }
 
 long	ft_philo_atoi(char *str)
@@ -62,7 +62,7 @@ long	ft_philo_atoi(char *str)
 	nb = 0;
 	if (!str)
 		return (-1);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (-1);
@@ -77,8 +77,7 @@ int	check_dead(t_philo *philo)
 	int	i;
 
 	i = 0;
-	
-	if (ph_time()  > philo->t_die + philo->non_eat_start)
+	if (ph_time() > philo->t_die + philo->non_eat_start)
 	{
 		pthread_mutex_lock(&philo->lock_print);
 		philo->all->dead = 1;
@@ -91,10 +90,8 @@ int	check_dead(t_philo *philo)
 			pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
 			i++;
 		}
-		
 		pthread_mutex_unlock(&philo->all->lock);
 		return (1);
-		
 	}
-	return	(0);
+	return (0);
 }

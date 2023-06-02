@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 17:08:46 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 18:00:51 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	ini_data(t_data *all, char **argv, int argc)
 	else
 		all->nb_t_eat = -1;
 	all->dead = 0;
-	if (all->n_philo < 1 || all->n_philo > 200 || all->t_die == 0 ||
-		all->t_eat == 0 || all->t_sleep == 0 || (all->nb_t_eat < 1 && argc == 6))
+	if (all->n_philo < 1 || all->n_philo > 200 || all->t_die == 0
+		||all->t_eat == 0 || all->t_sleep == 0
+		|| (all->nb_t_eat < 1 && argc == 6))
 		return (1);
 	return (0);
 }
@@ -83,34 +84,5 @@ int	allocate_all(t_data *all)
 	all->all_p = malloc(all->n_philo * sizeof(t_philo));
 	if (!all->all_p)
 		return (3);
-	return (0);
-}
-
-int	ini_thread(t_data *all)
-{
-	int			i;
-	pthread_t	moni;
-
-	i = -1;
-	all->time_start = ph_time();
-	pthread_create(&moni, NULL, monitor, all->all_p);
-	while (++i < all->n_philo)
-		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
-	i = -1;
-	while (++i < all->n_philo)
-		pthread_join(all->t[i], NULL);
-	pthread_join(moni, NULL);
-	return (0);
-}
-
-int	init(t_data *all, char **argv, int argc)
-{
-	if (ini_data(all, argv, argc) != 0)
-		return (1);
-	if (allocate_all(all) != 0)
-		return (1);
-	ini_mutex(all);
-	ini_philo(all);
-	ini_thread(all);
 	return (0);
 }
