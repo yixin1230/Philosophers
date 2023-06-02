@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/05/31 15:32:27 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 13:22:59 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		int_thread(t_data *all);
 int		check_meals(t_philo *philo);
 void	*action(void *arg);
 void	taking_fork(t_philo *philo);
+void	taking_fork_odd(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);

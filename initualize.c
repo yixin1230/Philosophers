@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/01 08:17:49 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 13:27:46 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ini_data(t_data *all, char **argv, int argc)
 	all->t_die = ft_philo_atoi(argv[2]);
 	all->t_eat = ft_philo_atoi(argv[3]);
 	all->t_sleep = ft_philo_atoi(argv[4]);
-	all->time_start = ph_time();
 	all->enough_philos = 0;
 	all->argc = argc;
 	all->enough_philos = 0;
@@ -101,10 +100,7 @@ int	ini_thread(t_data *all)
 	i = -1;
 	pthread_create(&moni, NULL, monitor, all->all_p);
 	while(++i < all->n_philo)
-	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
-		usleep(10);
-	}
 	i = -1;
 	while(++i < all->n_philo)
 		pthread_join(all->t[i], NULL);

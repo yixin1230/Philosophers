@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/01 17:45:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 13:31:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	checker(int argc, char **argv)
 	int	j;
 
 	i = 1;
-	
 	if (argc != 6 && argc != 5)
 		return (-1);
 	while (i < argc)
@@ -47,11 +46,11 @@ long	ph_time(void)
 
 void	my_usleep(unsigned int ms)
 {
-	long	time;
+/* 	long	time;
 
 	time = ph_time();
-	while (ph_time() - time < ms)
-		usleep(923);
+	while (ph_time() - time < ms) */
+		usleep(990 *ms);
 }
 
 long	ft_philo_atoi(char *str)
@@ -78,19 +77,20 @@ int	check_dead(t_philo *philo)
 	int	i;
 
 	i = 0;
-	if (ph_time() - philo->non_eat_start >= philo->t_die)
+	if (ph_time()  > philo->t_die + philo->non_eat_start)
 	{
-		pthread_mutex_lock(&philo->lock_print);
+		philo->all->dead = 1;
 		printf("%li %li died\n", ph_time() - philo->all->time_start, philo->id);
-		pthread_mutex_unlock(&philo->lock_print);
+		pthread_mutex_lock(&philo->lock_print);
 		while (i < philo->all->n_philo)
 		{
 			philo->all->all_p[i].stop = 1;
-			i++;
 			pthread_mutex_unlock(&philo->all->all_fork[i]);
 			pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
+			i++;
 		}
-		philo->all->dead = 1;
+		i = 0;
+		pthread_mutex_unlock(&philo->lock_print);
 		pthread_mutex_unlock(&philo->all->lock);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/01 17:54:35 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 13:27:55 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ void	*monitor(void *arg)
 
 	i = 0;
 	philo = (t_philo *)arg;
-	while (!philo->all->dead)
+	philo->all->time_start = ph_time();
+	while (!philo->all->dead || !philo->stop || !philo->all->enough_philos)
 	{
 		i = 0;
-		while (i < philo[i].n_philo && !philo->all->dead && !philo->stop)
+		while (i < philo->n_philo)
 		{
-			if (check_dead(&philo[i]))
+			if (check_dead(&philo->all->all_p[i]))
 				return (NULL);
-			if (philo->all->argc == 6 && check_meals(&philo[i]))
+			if (philo->all->argc == 6 && check_meals(&philo->all->all_p[i]))
 				return (NULL);
 			i++;
 		}
