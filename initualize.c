@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 16:39:08 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 17:08:46 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	ini_philo(t_data *all)
 	int	i;
 
 	i = 0;
-	if (all->n_philo == 1)
-	{
-		all->all_p[i].right = 0;
-		all->all_p[i].left = 0;
-		return ;
-	}
 	while (i < all->n_philo)
 	{
 		all->all_p[i].id = 1 + i;
@@ -100,10 +94,10 @@ int	ini_thread(t_data *all)
 	i = -1;
 	all->time_start = ph_time();
 	pthread_create(&moni, NULL, monitor, all->all_p);
-	while(++i < all->n_philo)
+	while (++i < all->n_philo)
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
 	i = -1;
-	while(++i < all->n_philo)
+	while (++i < all->n_philo)
 		pthread_join(all->t[i], NULL);
 	pthread_join(moni, NULL);
 	return (0);

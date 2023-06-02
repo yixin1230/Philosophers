@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/19 16:20:15 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 16:41:52 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 17:29:03 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*action(void	*arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	//philo->non_eat_start = ph_time();
 	while (!philo->all->dead || !philo->stop)
 	{
 		if (philo->id % 2 == 0 && philo->id != philo->n_philo)
@@ -42,13 +41,13 @@ void	taking_fork(t_philo *philo)
 	pthread_mutex_lock(&philo->all->all_fork[philo->right]);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
-	printf("%li %li has taken a fork1\n", ph_time() - philo->all->time_start, philo->id);
+	printf("%li %li has taken a fork\n", ph_time() - philo->all->time_start, philo->id);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
 	pthread_mutex_lock(&philo->all->all_fork[philo->left]);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
-	printf("%li %li has taken a fork2\n", ph_time() - philo->all->time_start, philo->id);
+	printf("%li %li has taken a fork\n", ph_time() - philo->all->time_start, philo->id);
 }
 
 void	taking_fork_odd(t_philo *philo)
@@ -56,13 +55,13 @@ void	taking_fork_odd(t_philo *philo)
 	pthread_mutex_lock(&philo->all->all_fork[philo->left]);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
-	printf("%li %li has taken a fork1\n", ph_time() - philo->all->time_start, philo->id);
+	printf("%li %li has taken a fork\n", ph_time() - philo->all->time_start, philo->id);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
 	pthread_mutex_lock(&philo->all->all_fork[philo->right]);
 	if (philo->all->dead || philo->stop || philo->all->enough_philos)
 		return ;
-	printf("%li %li has taken a fork2\n", ph_time() - philo->all->time_start, philo->id);
+	printf("%li %li has taken a fork\n", ph_time() - philo->all->time_start, philo->id);
 }
 
 void	eating(t_philo *philo)
