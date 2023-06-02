@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 13:52:55 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 16:39:08 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	ini_thread(t_data *all)
 	pthread_t	moni;
 
 	i = -1;
+	all->time_start = ph_time();
 	pthread_create(&moni, NULL, monitor, all->all_p);
 	while(++i < all->n_philo)
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);

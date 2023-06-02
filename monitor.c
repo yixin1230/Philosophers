@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 13:27:55 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 14:19:58 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	*monitor(void *arg)
 
 	i = 0;
 	philo = (t_philo *)arg;
-	philo->all->time_start = ph_time();
 	while (!philo->all->dead || !philo->stop || !philo->all->enough_philos)
 	{
 		i = 0;

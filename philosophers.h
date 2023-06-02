@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/02 13:22:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/02 16:10:21 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_data
 int		checker(int argc, char **argv);
 long	ft_philo_atoi(char *str);
 long	ph_time(void);
-void	my_usleep(unsigned int ms);
+void	my_usleep(long ms);
 
 int		ini_data(t_data *all, char **argv, int argc);
 void	ini_philo(t_data *all);
