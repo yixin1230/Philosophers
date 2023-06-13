@@ -19,5 +19,9 @@ make
 
 ## Screen recording
 
-https://github.com/yixin1230/Philosophers/assets/100164159/fc62d913-6beb-463b-a922-dde330610377
+
+
+https://github.com/yixin1230/Philosophers/assets/100164159/ad56a8da-b5ee-4d54-8860-abcb5562d715
+
+
 
