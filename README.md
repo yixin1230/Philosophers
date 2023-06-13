@@ -6,4 +6,4 @@ A project made in accordance with the philosophers project which is part of the 
 It is a version of the [dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem). One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table. Philosophers need two forks to eat the spaghetti. There are as many forks as philosophers. 
 
 ## Screenshot
-
+Screen Recording 2023-06-13 at 11.00.16 AM.mov
