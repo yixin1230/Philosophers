@@ -13,7 +13,9 @@ make
 
 ## Screen recording
 
-https://github.com/yixin1230/Philosophers/assets/100164159/23fc55ca-63db-47b8-b3d1-b62e952c697b
+https://github.com/yixin1230/Philosophers/assets/100164159/da98a04d-d44d-4256-afd7-fd338e0a83db
+
 
 ## Resources
-* [Parallel Computing](https://computing.llnl.gov/tutorials/parallel_comp/)
+* [The Dining Philosopher’s Problem]([https://computing.llnl.gov/tutorials/parallel_comp/](https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788))
+* [Making an accurate Sleep() function](https://blat-blatnik.github.io/computerBear/making-accurate-sleep-function/)
