@@ -11,11 +11,10 @@ It is a version of the [dining philosophers problem](https://en.wikipedia.org/wi
 make
 ```
 
-## Screen recording
-
-https://github.com/yixin1230/Philosophers/assets/100164159/da98a04d-d44d-4256-afd7-fd338e0a83db
-
-
 ## Resources
-* [The Dining Philosopher’s Problem]([https://computing.llnl.gov/tutorials/parallel_comp/](https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788))
+* [The Dining Philosopher’s Problem](https://computing.llnl.gov/tutorials/parallel_comp/](https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788)
 * [Making an accurate Sleep() function](https://blat-blatnik.github.io/computerBear/making-accurate-sleep-function/)
+
+
+## Screen recording
+https://github.com/yixin1230/Philosophers/assets/100164159/da98a04d-d44d-4256-afd7-fd338e0a83db
