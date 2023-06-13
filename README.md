@@ -18,4 +18,6 @@ make
 * [What are Race Conditions?](https://www.youtube.com/watch?v=FY9livorrJI)
 
 ## Screen recording
-https://github.com/yixin1230/Philosophers/assets/100164159/da98a04d-d44d-4256-afd7-fd338e0a83db
+
+https://github.com/yixin1230/Philosophers/assets/100164159/fc62d913-6beb-463b-a922-dde330610377
+
