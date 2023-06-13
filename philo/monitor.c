@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/12 20:08:16 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/13 18:27:26 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_meals(t_philo *philo)
 			while (++i < philo->all->n_philo)
 			{
 				pthread_mutex_unlock(&philo->all->all_fork[i]);
-				pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
+				//pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
 				philo->all->all_p[i].stop = 1;
 			}
 			philo->all->enough_philos = 1;
@@ -45,17 +45,19 @@ void	*monitor(void *arg)
 {
 	int		i;
 	t_philo	*philo;
+	t_data	*all;
 
 	i = 0;
-	philo = (t_philo *)arg;
-	while (!philo->all->dead || !philo->stop || !philo->all->enough_philos)
+	all = (t_data *)arg;
+	philo = all->all_p;
+	while (!all->dead)
 	{
 		i = 0;
-		while (i < philo->n_philo)
+		while (i < all->n_philo)
 		{
-			if (check_dead(&philo->all->all_p[i]))
+			if (check_dead(&all->all_p[i]))
 				return (NULL);
-			if (philo->all->argc == 6 && check_meals(&philo->all->all_p[i]))
+			if (philo->all->argc == 6 && check_meals(&all->all_p[i]))
 				return (NULL);
 			i++;
 		}
@@ -70,7 +72,7 @@ void	*action(void	*arg)
 	philo = (t_philo *)arg;
 	while (!philo->all->dead || !philo->stop)
 	{
-		if (philo->id % 2 == 0 && philo->id != philo->n_philo)
+		if (philo->id % 2 != 0)
 			taking_fork(philo);
 		else
 			taking_fork_odd(philo);

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/13 10:06:54 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/13 18:27:33 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	check_dead(t_philo *philo)
 		{
 			philo->all->all_p[i].stop = 1;
 			pthread_mutex_unlock(&philo->all->all_fork[i]);
-			pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
+			//pthread_mutex_unlock(&philo->all->all_p[i].lock_print);
 			i++;
 		}
 		return (1);

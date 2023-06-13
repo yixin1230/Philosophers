@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/12 19:57:49 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/13 18:26:22 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@ int	free_all(t_data *all)
 	int	i;
 
 	i = -1;
-	free(all->all_p);
-	
+	free(all->t);
 	while (i++ < all->n_philo)
 	{
 		pthread_mutex_destroy(&all->all_fork[i]);
 		pthread_mutex_destroy(&all->all_p[i].lock_print);
 	}
-	pthread_mutex_destroy(&all->lock);
-	free(all->t);
-	free(all->all_fork);
 	
+	free(all->all_fork);
+	free(all->all_p);
 	return (0);
 }
 
@@ -38,13 +36,12 @@ int	ini_thread(t_data *all)
 
 	i = -1;
 	all->time_start = ph_time();
-	pthread_create(&moni, NULL, monitor, all->all_p);
+	pthread_create(&moni, NULL, monitor, all);
 	while (++i < all->n_philo)
 	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
 		usleep(10);
 	}
-		
 	i = -1;
 	while (++i < all->n_philo)
 		pthread_join(all->t[i], NULL);
@@ -64,16 +61,16 @@ int	init(t_data *all, char **argv, int argc)
 	return (0);
 }
 
-static void leaks (void)
+/* static void leaks (void)
 {
 	system("leaks -q philo");
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_data	all;
 
-	atexit(leaks);
+	//atexit(leaks);
 	if (checker(argc, argv) != 0)
 		return (1);
 	if (init(&all, argv, argc) != 0)
