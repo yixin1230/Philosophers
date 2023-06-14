@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/07 09:06:58 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 12:35:13 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ini_philo(t_data *all)
 {
 	int	i;
 
-	i = 0;
-	while (i < all->n_philo)
+	i = -1;
+	while (++i < all->n_philo)
 	{
 		all->all_p[i].id = 1 + i;
 		all->all_p[i].n_philo = all->n_philo;
@@ -56,8 +56,6 @@ void	ini_philo(t_data *all)
 		all->all_p[i].enough = 0;
 		all->all_p[i].all = all;
 		all->all_p[i].non_eat_start = ph_time();
-		//pthread_mutex_init(&all->all_p[i].lock_print, NULL);
-		i++;
 	}
 }
 
