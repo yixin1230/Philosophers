@@ -7,7 +7,7 @@ It is a version of the [dining philosophers problem](https://en.wikipedia.org/wi
 
 ## Starting
 ```bash
-＃Change directory to philo
+# Change directory to philo
 cd philo
 # Compile the mandatory part
 make
