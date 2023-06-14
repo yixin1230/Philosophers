@@ -1,5 +1,5 @@
 
-<h1 align="center"> Philosophers </h1>
+<h1 align="center"> 🍝Philosophers🍝 </h1>
 
 <h2 align="center">Implementation of dining philosophers using threads</h2>
 <br>
