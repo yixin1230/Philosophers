@@ -1,4 +1,19 @@
-# 🍝Philosophers🍝
+
+<h1 align="center"> Philosophers </h1>
+
+<h2 align="center">Implementation of dining philosophers using threads</h2>
+<br>
+<p align="center">
+<p align="center">
+
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/yixin1230/Philosophers?color=3de069">
+
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/yixin1230/Philosophers?color=3de069">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/yixin1230/Philosophers?color=3de069">
+
+
+</p>
 
 ## About🍴
 
