@@ -7,10 +7,20 @@ It is a version of the [dining philosophers problem](https://en.wikipedia.org/wi
 
 ## Starting
 ```bash
-# Change directory to philo
+# Access
 cd philo
+
 # Compile the mandatory part
 make
+
+# To run (example)
+./philo 5 800 200 200 7
+
+# To remove objects
+make clean
+
+# To remove objects and executable
+make fclean
 ```
 
 ## Resources
