@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 14:29:30 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 17:00:08 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ long	ph_time(void)
 
 void	my_usleep(long ms)
 {
-	long	time;
+	long	timestamp;
 
-	time = ph_time();
-	while (ph_time() - time < ms)
-		usleep(ms / 10);
+	timestamp = ph_time();
+	while (ph_time()- timestamp < ms)
+		usleep(150);
 }
 
 long	ft_philo_atoi(char *str)
@@ -75,15 +75,18 @@ long	ft_philo_atoi(char *str)
 int	check_dead(t_philo *philo)
 {
 	int	i;
+	long	time;
 
 	i = -1;
+	
 	if (ph_time() > philo->t_die + philo->non_eat_start)
 	{
-		philo->all->dead = 1;
-		printf("%li %li died\n", ph_time() - philo->all->time_start, philo->id);
 		pthread_mutex_lock(&philo->all->lock);
+		time = ph_time() - philo->all->time_start;
 		while (++i < philo->all->n_philo)
 			philo->all->all_p[i].stop = 1;
+		philo->all->dead = 1;
+		printf("%li %li died\n", time, philo->id);
 		pthread_mutex_unlock(&philo->all->lock);
 		return (1);
 	}

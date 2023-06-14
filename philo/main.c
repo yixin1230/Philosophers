@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 14:09:28 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 15:42:58 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ini_thread(t_data *all)
 	while (++i < all->n_philo)
 	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
-		usleep(10);
+		usleep(5);
 	}
 	if (all->n_philo == 1)
 	{
