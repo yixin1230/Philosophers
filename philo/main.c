@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 12:46:46 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 14:09:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int	free_all(t_data *all)
 {
 	int	i;
 
-	i = -1;
-	free(all->t);
-	while (i++ < all->n_philo)
+	i = 0;
+	while (i < all->n_philo)
 	{
 		pthread_mutex_destroy(&all->all_fork[i]);
 		pthread_mutex_destroy(&all->all_p[i].lock_print);
+		i++;
 	}
 	pthread_mutex_destroy(&all->lock);
+	free(all->t);
 	free(all->all_fork);
 	free(all->all_p);
 	return (0);
@@ -38,7 +39,10 @@ int	ini_thread(t_data *all)
 	all->time_start = ph_time();
 	pthread_create(&moni, NULL, monitor, all);
 	while (++i < all->n_philo)
+	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
+		usleep(10);
+	}
 	if (all->n_philo == 1)
 	{
 		pthread_detach(all->t[0]);
