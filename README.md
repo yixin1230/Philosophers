@@ -43,6 +43,7 @@ make fclean
 * [Making an accurate Sleep() function](https://blat-blatnik.github.io/computerBear/making-accurate-sleep-function/)
 * [Introduction of Deadlock in Operating System](https://www.geeksforgeeks.org/introduction-of-deadlock-in-operating-system/)
 * [What are Race Conditions?](https://www.youtube.com/watch?v=FY9livorrJI)
+* [Philosophers visualizer](https://nafuka11.github.io/philosophers-visualizer/)
 
 ## Screen recording
 
