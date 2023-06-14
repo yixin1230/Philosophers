@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/13 18:26:22 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 10:31:22 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	free_all(t_data *all)
 		pthread_mutex_destroy(&all->all_fork[i]);
 		pthread_mutex_destroy(&all->all_p[i].lock_print);
 	}
-	
+	pthread_mutex_destroy(&all->lock);
 	free(all->all_fork);
 	free(all->all_p);
 	return (0);

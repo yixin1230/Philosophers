@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/10 11:25:25 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/13 18:18:31 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 10:31:04 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ini_mutex(t_data *all)
 	int	i;
 
 	i = -1;
+	pthread_mutex_init(&all->lock, NULL);
 	while (++i < all->n_philo)
 	{
 		pthread_mutex_init(&all->all_p[i].lock_print, NULL);
