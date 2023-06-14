@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 10:31:22 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/14 12:46:46 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ int	ini_thread(t_data *all)
 	all->time_start = ph_time();
 	pthread_create(&moni, NULL, monitor, all);
 	while (++i < all->n_philo)
-	{
 		pthread_create(&all->t[i], NULL, action, &all->all_p[i]);
-		usleep(10);
+	if (all->n_philo == 1)
+	{
+		pthread_detach(all->t[0]);
+		pthread_join(moni, NULL);
+		return (0);
 	}
 	i = -1;
 	while (++i < all->n_philo)
@@ -61,16 +64,10 @@ int	init(t_data *all, char **argv, int argc)
 	return (0);
 }
 
-/* static void leaks (void)
-{
-	system("leaks -q philo");
-} */
-
 int	main(int argc, char **argv)
 {
 	t_data	all;
 
-	//atexit(leaks);
 	if (checker(argc, argv) != 0)
 		return (1);
 	if (init(&all, argv, argc) != 0)
