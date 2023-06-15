@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/19 16:20:15 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 14:13:55 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/15 09:56:56 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	taking_fork_else(t_philo *philo)
 	pthread_mutex_lock(&philo->all->all_fork[philo->left]);
 	message (philo, "has taken a fork");
 }
+
 void	taking_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->all->all_fork[philo->left]);
@@ -60,11 +61,4 @@ void	thinking_sleeping(t_philo *philo)
 	message (philo, "is thinking");
 	if (philo->t_eat >= philo->t_sleep && philo->n_philo % 2 != 0)
 		my_usleep(philo->t_eat - philo->t_sleep + 5);
-}
-
-void	message(t_philo *philo, char *str)
-{
-	if (!philo->all->dead && !philo->stop && !philo->all->enough_philos)
-		printf("%li %li %s\n",
-			ph_time() - philo->all->time_start, philo->id, str);
 }

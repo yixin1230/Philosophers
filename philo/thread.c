@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   monitor.c                                          :+:    :+:            */
+/*   thread.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/05/22 14:32:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 14:25:55 by yizhang       ########   odam.nl         */
+/*   Created: 2023/06/15 10:00:31 by yizhang       #+#    #+#                 */
+/*   Updated: 2023/06/15 10:00:33 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ int	check_meals(t_philo *philo)
 			philo->all->enough_philos = 1;
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int	check_dead(t_philo *philo)
+{
+	int		i;
+	long	time;
+
+	i = -1;
+	if (ph_time() > philo->t_die + philo->non_eat_start)
+	{
+		pthread_mutex_lock(&philo->all->lock);
+		time = ph_time() - philo->all->time_start;
+		while (++i < philo->all->n_philo)
+			philo->all->all_p[i].stop = 1;
+		philo->all->dead = 1;
+		printf("%li %li died\n", time, philo->id);
+		pthread_mutex_unlock(&philo->all->lock);
+		return (1);
 	}
 	return (0);
 }

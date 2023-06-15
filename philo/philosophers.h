@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/16 11:42:34 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 13:21:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/15 09:56:20 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void	message(t_philo *philo, char *str);
 int		check_dead(t_philo *philo);
 int		free_all(t_data *all);
 void	*monitor(void *arg);
+void	leaks(void);
 #endif

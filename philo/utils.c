@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checker.c                                          :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/05/15 15:20:54 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 17:00:08 by yizhang       ########   odam.nl         */
+/*   Created: 2023/06/15 10:00:49 by yizhang       #+#    #+#                 */
+/*   Updated: 2023/06/15 10:00:51 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	message(t_philo *philo, char *str)
+{
+	if (!philo->all->dead && !philo->stop && !philo->all->enough_philos)
+		printf("%li %li %s\n",
+			ph_time() - philo->all->time_start, philo->id, str);
+}
 
 int	checker(int argc, char **argv)
 {
@@ -49,7 +56,7 @@ void	my_usleep(long ms)
 	long	timestamp;
 
 	timestamp = ph_time();
-	while (ph_time()- timestamp < ms)
+	while (ph_time() - timestamp < ms)
 		usleep(150);
 }
 
@@ -70,25 +77,4 @@ long	ft_philo_atoi(char *str)
 		i++;
 	}
 	return (nb);
-}
-
-int	check_dead(t_philo *philo)
-{
-	int	i;
-	long	time;
-
-	i = -1;
-	
-	if (ph_time() > philo->t_die + philo->non_eat_start)
-	{
-		pthread_mutex_lock(&philo->all->lock);
-		time = ph_time() - philo->all->time_start;
-		while (++i < philo->all->n_philo)
-			philo->all->all_p[i].stop = 1;
-		philo->all->dead = 1;
-		printf("%li %li died\n", time, philo->id);
-		pthread_mutex_unlock(&philo->all->lock);
-		return (1);
-	}
-	return (0);
 }

@@ -6,14 +6,14 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/03/16 11:41:56 by yizhang       #+#    #+#                  #
-#    Updated: 2023/06/14 13:20:32 by yizhang       ########   odam.nl          #
+#    Updated: 2023/06/15 10:01:38 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = gcc
 FLAG = -Wall -Werror -Wextra #-g3 -fsanitize=thread
-SRC = main.c initualize.c actions.c checker.c monitor.c
+SRC = main.c initualize.c actions.c utils.c thread.c
 OBJ = ${SRC:.c=.o}
 
 all: ${NAME}

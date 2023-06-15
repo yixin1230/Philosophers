@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/28 09:21:41 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/06/14 15:42:58 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/06/15 09:56:07 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int	init(t_data *all, char **argv, int argc)
 	ini_philo(all);
 	ini_thread(all);
 	return (0);
+}
+
+void	leaks(void)
+{
+	system("leaks -q philo");
 }
 
 int	main(int argc, char **argv)
